@@ -1,0 +1,31 @@
+.user-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-avatar {
+  width: 45px;
+  height: 45px;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.phone {
+  font-size: 12px;
+  color: #b7b7b7;
+}
+
+.user-avatar__placeholder {
+  width: 30px;
+  height: 30px;
+}

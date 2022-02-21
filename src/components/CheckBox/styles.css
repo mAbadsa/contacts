@@ -1,0 +1,32 @@
+.CheckBox {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.CheckBox:focus {
+  box-shadow: 0 0 0 3px pink;
+}
+
+.styled-checkbox {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 10px;
+  border: 1px solid #b7b7b7;
+  cursor: pointer;
+  text-align: center;
+  transition: all 150ms;
+}
+
+.styled-checkbox svg {
+  color: #f5f5f5;
+  width: 11px;
+}
