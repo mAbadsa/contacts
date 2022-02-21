@@ -1,4 +1,4 @@
-import { FC, ReactElement, memo } from "react";
+import { FC, ReactElement } from "react";
 
 import ContactUnit from "../ContactUnit";
 import ContactsGroupType from "./ContactsGroup.type";

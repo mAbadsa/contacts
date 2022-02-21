@@ -17,16 +17,10 @@ const UserCard: FC<UserCardType> = ({
   const [checked, setChecked] = useState(false);
 
   const handleChange = () => {
-    console.log("userCard");
-    console.log(checked);
-
     if (!checked && !selectedContacts.find((item) => item.id === id)) {
-      console.log("00");
-      console.log(checked);
       setSelectContact(id, "select");
       setChecked(!checked);
     } else {
-      console.log("00");
       setSelectContact(id, "unselect");
       setChecked(!checked);
     }

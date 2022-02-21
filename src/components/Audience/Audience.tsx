@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Col } from "react-bootstrap";
 import Header from "./Header";
 import AudienceType from "./Audience.type";

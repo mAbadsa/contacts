@@ -19,10 +19,8 @@ const Search: FC<SearchType> = ({ search }) => {
   };
 
   useEffect(() => {
-    console.log(searchValue);
-
     debouncedSearch(searchValue);
-  }, [searchValue]);
+  }, [debouncedSearch, searchValue]);
 
   return (
     <Row>

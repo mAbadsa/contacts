@@ -28,21 +28,18 @@ function contactsReducer(state: State, action: Action): State {
 
   switch (type) {
     case "fetch_contacts":
-      console.log("payload", payload);
       return {
         ...state,
         contacts: payload,
         isLoading: false,
       };
     case "select_all_contacts":
-      console.log("payload", payload);
       return {
         ...state,
         selectedContact: payload,
         isLoading: false,
       };
     case "unselect_all_contacts":
-      console.log("payload", payload);
       return {
         ...state,
         selectedContact: payload,
@@ -93,7 +90,6 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
 
   const fetchContacts = async (unmounted: Boolean) => {
     try {
-      console.log({ token });
       const { data } = (await Axios.get(
         `https://api-im.chatdaddy.tech/contacts`,
         {
@@ -108,7 +104,6 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
         }
       )) as AxiosResponse;
       setLimit(limit + 10);
-      console.log({ limit });
       if (state.contacts.length === data.contacts.length) {
         setHasMore(false);
       }
@@ -175,10 +170,6 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
         },
       }
     );
-
-    console.log(state.searchResult);
-    console.log({ res });
-    console.log({ queryValue });
 
     if (queryValue !== "") {
       dispatch({

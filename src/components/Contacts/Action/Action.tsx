@@ -1,4 +1,4 @@
-import { FC, useState, memo } from "react";
+import { FC, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 import Button from "../../Button";
@@ -14,9 +14,6 @@ const Action: FC<ActionType> = ({
 }) => {
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
-    console.log({ checked });
-    console.log({ contacts });
-    console.log({ selectedContacts });
     setChecked(!checked);
     selectAll();
   };

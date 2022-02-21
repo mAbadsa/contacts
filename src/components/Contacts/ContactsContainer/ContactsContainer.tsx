@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useContext, ReactElement } from "react";
+import { FC, ReactElement } from "react";
 
 import { Row } from "react-bootstrap";
 import ContactsGroup from "../ContactsGroup";
@@ -16,13 +16,8 @@ const ContactsContainer: FC<ContactsContainerType> = ({
     searchResult.length > 0 ? searchResult : contacts
   );
 
-  console.log({ groupedContacts });
-  console.log({ searchResult });
-  console.log({ contacts });
-
   const contactsGroupEl: ReactElement[] = groupedContacts?.map(
     (item: any, idx): ReactElement => {
-      // console.log(item);
       return (
         <Row key={idx}>
           <div>
