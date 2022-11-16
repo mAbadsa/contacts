@@ -11,6 +11,7 @@ jobs:
       - name: Lint
         run: yarn run lint:fix
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -20,6 +21,7 @@ jobs:
       - name: Test
         run: yarn test
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
