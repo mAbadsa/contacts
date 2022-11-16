@@ -4,12 +4,7 @@ import Axios, { AxiosRequestConfig } from "axios";
 export const AuthContext = createContext<{ token: string }>({ token: "" });
 
 const AuthProvider: FC = ({ children }) => {
-  // const [isAuth, setIsAuth] = useState(false);
-  // const [refresh, setRefresh] = useState(false);
-  // const [authLoading, setAuthLoading] = useState(true);
-  // const [userData, setUserData] = useState(null);
   const [token, setToken] = useState<string>("");
-  console.log({ token });
 
   useEffect(() => {
     let unmounted = true;
@@ -30,26 +25,22 @@ const AuthProvider: FC = ({ children }) => {
           console.log("unmounted");
 
           setToken(authData.access_token);
+          console.log({ token });
         }
-      } catch ({ response: resError }) {
+      } catch ({ response }) {
         setToken("");
       }
     })();
     return () => {
       unmounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
         token,
-        // isAuth,
-        // userData,
-        // authLoading,
-        // setAuthLoading,
-        // refresh,
-        // setRefresh,
       }}
     >
       {children}
@@ -58,3 +49,4 @@ const AuthProvider: FC = ({ children }) => {
 };
 
 export default AuthProvider;
+

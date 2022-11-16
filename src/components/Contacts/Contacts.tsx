@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useState, useEffect, useContext, useReducer } from "react";
 import Axios, { AxiosResponse } from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -15,6 +16,7 @@ import "./styles.css";
 
 type State = {
   contacts: Array<{ [key: string]: any }>;
+  totalCount: number;
   isLoading: Boolean;
   selectedContact: Array<{ [key: string]: any }>;
   error: string;
@@ -30,7 +32,8 @@ function contactsReducer(state: State, action: Action): State {
     case "fetch_contacts":
       return {
         ...state,
-        contacts: payload,
+        contacts: payload.contacts,
+        totalCount: payload.totalCount,
         isLoading: false,
       };
     case "select_all_contacts":
@@ -76,6 +79,7 @@ function contactsReducer(state: State, action: Action): State {
 const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
   const [state, dispatch] = useReducer(contactsReducer, {
     contacts: [],
+    totalCount: 0,
     isLoading: true,
     selectedContact: [],
     error: "",
@@ -86,7 +90,6 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const { token } = useContext<{ token: string }>(AuthContext);
-  setContactsNumber(state.contacts.length);
 
   const fetchContacts = async (unmounted: Boolean) => {
     try {
@@ -104,16 +107,26 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
         }
       )) as AxiosResponse;
       setLimit(limit + 10);
-      if (state.contacts.length === data.contacts.length) {
+      console.log({ data });
+      if (
+        state.contacts.length === state.totalCount &&
+        state.totalCount !== 0
+      ) {
+        console.log("all contacts was fetched");
+        console.log({ state });
+        console.log(hasMore);
         setHasMore(false);
       }
+
       if (unmounted) {
         dispatch({
           type: "fetch_contacts",
-          payload: data.contacts,
+          payload: { contacts: data.contacts, totalCount: data.totalCount },
         });
+        setContactsNumber(state.totalCount);
       }
     } catch (error: any) {
+      console.log({ error });
       dispatch({
         type: "fetch_contacts_falid",
         payload: error.response.data.message || "Something went wrong!",
@@ -123,7 +136,7 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
 
   useEffect(() => {
     let unmounted: Boolean = true;
-    fetchContacts(unmounted);
+    !!token && fetchContacts(unmounted);
     return () => {
       unmounted = false;
     };
@@ -187,11 +200,7 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
   return (
     <Col className="p-3" sm="9" md="9" lg="9">
       <Header />
-      <Search
-        // setSearchValue={setSearchValue}
-        search={handleSearch}
-        // value={searchValue}
-      />
+      <Search search={handleSearch} />
       <ActionComponent
         selectAll={handleSelectAllContacts}
         selectedContacts={state.selectedContact}
@@ -224,3 +233,4 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
 };
 
 export default Contacts;
+

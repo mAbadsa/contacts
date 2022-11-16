@@ -1,10 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../../Button";
-import CheckBox from "../../CheckBox/CheckBox";
 import UserCard from "../../UserCard";
 
 import ContactUnitType from "./ContactUnit.type";
@@ -43,3 +42,4 @@ const ContactUnit: FC<ContactUnitType> = ({
 };
 
 export default ContactUnit;
+
