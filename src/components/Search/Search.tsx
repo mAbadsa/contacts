@@ -3,6 +3,7 @@ import { debounce } from "lodash";
 import { Row, Col, Form, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import { AuthContext } from "../../context/Authentication";
 
@@ -32,7 +33,7 @@ const Search: FC<SearchType> = ({ search }) => {
         <InputGroup className="my-3 position-relative">
           <FontAwesomeIcon
             className="icon position-absolute text-secondary"
-            icon={faMagnifyingGlass}
+            icon={faMagnifyingGlass as IconProp}
           />
           <Form.Control
             className="serach-input bg-secondary rounded py-2"

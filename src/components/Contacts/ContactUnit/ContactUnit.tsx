@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import Button from "../../Button";
 import UserCard from "../../UserCard";
@@ -34,7 +35,7 @@ const ContactUnit: FC<ContactUnitType> = ({
         lg="6"
       >
         <Button shape="circle" variant="success">
-          <FontAwesomeIcon icon={faAdd} />
+          <FontAwesomeIcon icon={faAdd as IconProp} />
         </Button>
       </Col>
     </Row>

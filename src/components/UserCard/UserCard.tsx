@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+
 import CheckBox from "../CheckBox";
 import UserCardType from "./UserCard.type";
 import "./styles.css";
@@ -50,7 +52,7 @@ const UserCard: FC<UserCardType> = ({
         ) : (
           <FontAwesomeIcon
             className="user-avatar__placeholder"
-            icon={faCircleUser}
+            icon={faCircleUser as IconProp}
           />
         )}
         <div className="user-data ps-2">
@@ -63,3 +65,4 @@ const UserCard: FC<UserCardType> = ({
 };
 
 export default UserCard;
+

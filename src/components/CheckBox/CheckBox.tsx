@@ -1,5 +1,6 @@
 import { CSSProperties, FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-bootstrap";
 import CheckBoxType from "./CheckBox.type";
@@ -28,10 +29,11 @@ const CheckBox: FC<CheckBoxType> = ({
         {...props}
       />
       <div className="styled-checkbox" style={style} onClick={onChange}>
-        {checked ? <FontAwesomeIcon icon={faCheck} /> : null}
+        {checked ? <FontAwesomeIcon icon={faCheck as IconProp} /> : null}
       </div>
     </Form>
   );
 };
 
 export default CheckBox;
+
