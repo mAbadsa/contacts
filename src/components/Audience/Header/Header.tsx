@@ -12,7 +12,7 @@ const Header: FC<HeaderType> = ({ contactsNumber }) => {
       <Col sm="6" md="6" lg="6">
         <Row>
           <Col sm="3" md="3" lg="3">
-            <FontAwesomeIcon icon={faBarsStaggered} />
+            <FontAwesomeIcon icon={faBarsStaggered as IconProp} />
           </Col>
           <Col
             className="d-flex justify-content-start p-md-0"
