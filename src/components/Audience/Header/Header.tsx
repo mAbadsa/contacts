@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import HeaderType from "./Header.type";
 import "./styles.css";
@@ -40,3 +41,4 @@ const Header: FC<HeaderType> = ({ contactsNumber }) => {
 };
 
 export default Header;
+
