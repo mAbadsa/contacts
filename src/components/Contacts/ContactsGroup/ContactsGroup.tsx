@@ -1,27 +1,23 @@
-import { FC, ReactElement } from "react";
+/* eslint-disable */
 
-import ContactUnit from "../ContactUnit";
-import ContactsGroupType from "./ContactsGroup.type";
-import "./styles.css";
+import type { FC, ReactElement } from 'react';
 
-const ContactsGroup: FC<ContactsGroupType> = ({
-  contacts,
-  selectedContacts,
-  setSelectContact,
-}) => {
-  const contactsUnitEl: ReactElement[] = contacts?.map((contacts) => {
-    return (
-      <ContactUnit
-        key={contacts.id}
-        phoneNumber={contacts.phoneNumber}
-        name={contacts.name}
-        img={contacts.img}
-        id={contacts.id}
-        selectedContacts={selectedContacts}
-        setSelectContact={setSelectContact}
-      />
-    );
-  });
+import ContactUnit from '../ContactUnit';
+import type ContactsGroupType from './ContactsGroup.type';
+import './styles.css';
+
+const ContactsGroup: FC<ContactsGroupType> = ({ contacts, selectedContacts, setSelectContact }) => {
+  const contactsUnitEl: ReactElement[] = contacts?.map((contacts) => (
+    <ContactUnit
+      key={contacts.id}
+      phoneNumber={contacts.phoneNumber}
+      name={contacts.name}
+      img={contacts.img}
+      id={contacts.id}
+      selectedContacts={selectedContacts}
+      setSelectContact={setSelectContact}
+    />
+  ));
   return <>{contactsUnitEl}</>;
 };
 

@@ -1,0 +1,16 @@
+name: Deployment excercise 1
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn run lint:fix
+      - name: Test
+        run: yarn test
+      - name: Build
+        run: yarn build

@@ -1,3 +1,3 @@
-import ContactUnit from "./ContactsGroup";
+import ContactUnit from './ContactsGroup';
 
 export default ContactUnit;

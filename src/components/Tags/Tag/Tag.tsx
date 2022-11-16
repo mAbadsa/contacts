@@ -1,8 +1,6 @@
-import { FC } from "react";
-// import TagType from "./Tag.type";
+import type {FC} from 'react';
+// Import TagType from "./Tag.type";
 
-const Tag: FC = () => {
-  return <></>;
-};
+const Tag: FC = () => <></>;
 
 export default Tag;

@@ -1,7 +1,7 @@
 type ActionType = {
-  selectAll: () => void;
-  selectedContacts: { [key: string]: any }[];
-  contacts: { [key: string]: any }[];
+	selectAll: () => void;
+	selectedContacts: Array<Record<string, any>>;
+	contacts: Array<Record<string, any>>;
 };
 
 export default ActionType;

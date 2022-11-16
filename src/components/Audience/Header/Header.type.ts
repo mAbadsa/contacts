@@ -1,5 +1,5 @@
 type HeaderType = {
-  contactsNumber: number;
+	contactsNumber: number;
 };
 
 export default HeaderType;

@@ -1,3 +1,3 @@
-import Audience from "./Audience";
+import Audience from './Audience';
 
 export default Audience;

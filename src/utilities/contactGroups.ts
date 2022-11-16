@@ -1,14 +1,17 @@
-const cotactsGroup = (contacts: { [key: string]: any }[]): Object[] => {
-  const groupContacts: { letter: string; contacts: Object }[] = [];
-  const hash: {
-    [key: string]: {
-      letter: string;
-      contacts: any[];
-    };
-  } = {};
+/* eslint-disable */
 
-  contacts?.forEach((contact: { [key: string]: any }) => {
-    let letter: string = contact?.name.toLowerCase().substring(0, 1);
+const cotactsGroup = (contacts: Array<Record<string, any>>): Array<Record<string, unknown>> => {
+  const groupContacts: Array<{ letter: string; contacts: Record<string, any> }> = [];
+  const hash: Record<
+    string,
+    {
+      letter: string;
+      contacts: Record<string, any>;
+    }
+  > = {};
+
+  contacts?.forEach((contact: Record<string, any>) => {
+    const letter: string = contact?.name.toLowerCase().substring(0, 1);
     if (hash[letter]) {
       hash[letter].contacts.push(contact);
     } else {
@@ -16,7 +19,7 @@ const cotactsGroup = (contacts: { [key: string]: any }[]): Object[] => {
         (hash[letter] = {
           letter,
           contacts: [contact],
-        })
+        }),
       );
     }
   });

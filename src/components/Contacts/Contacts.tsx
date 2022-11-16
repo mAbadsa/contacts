@@ -1,75 +1,76 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useState, useEffect, useContext, useReducer } from "react";
-import Axios, { AxiosResponse } from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Col, Spinner, Alert } from "react-bootstrap";
+/* eslint-disable */
 
-import Header from "./Header";
-import Search from "../Search";
-import ActionComponent from "./Action";
-import { AuthContext } from "../../context/Authentication";
-import ContactsContainer from "./ContactsContainer/ContactsContainer";
+import type { FC } from 'react';
+import { useState, useEffect, useContext, useReducer } from 'react';
+import type { AxiosResponse } from 'axios';
+import Axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Col, Spinner, Alert } from 'react-bootstrap';
 
-import ContactsType from "./Contacts.type";
+import Header from './Header';
+import Search from '../Search';
+import ActionComponent from './Action';
+import { AuthContext } from '../../context/Authentication';
+import ContactsContainer from './ContactsContainer/ContactsContainer';
 
-import "./styles.css";
+import type ContactsType from './Contacts.type';
+
+import './styles.css';
 
 type State = {
-  contacts: Array<{ [key: string]: any }>;
+  contacts: Array<Record<string, any>>;
   totalCount: number;
-  isLoading: Boolean;
-  selectedContact: Array<{ [key: string]: any }>;
+  isLoading: boolean;
+  selectedContact: Array<Record<string, any>>;
   error: string;
-  searchResult: Array<any>;
+  searchResult: any[];
 };
 
 type Action = { type: string; payload?: any };
 
 function contactsReducer(state: State, action: Action): State {
-  const { type, payload } = action;
-
-  switch (type) {
-    case "fetch_contacts":
+  switch (action.type) {
+    case 'fetch_contacts':
       return {
         ...state,
-        contacts: payload.contacts,
-        totalCount: payload.totalCount,
+        contacts: action.payload.contacts,
+        totalCount: action.payload.totalCount,
         isLoading: false,
       };
-    case "select_all_contacts":
+    case 'select_all_contacts':
       return {
         ...state,
-        selectedContact: payload,
+        selectedContact: action.payload,
         isLoading: false,
       };
-    case "unselect_all_contacts":
+    case 'unselect_all_contacts':
       return {
         ...state,
-        selectedContact: payload,
+        selectedContact: action.payload,
         isLoading: false,
       };
-    case "select_contact":
+    case 'select_contact':
       return {
         ...state,
-        selectedContact: [...state.selectedContact, payload],
+        selectedContact: [...state.selectedContact, action.payload],
         isLoading: false,
       };
-    case "unselect_contact":
+    case 'unselect_contact':
       return {
         ...state,
-        selectedContact: payload,
+        selectedContact: action.payload,
         isLoading: false,
       };
 
-    case "contacts_search":
+    case 'contacts_search':
       return {
         ...state,
-        searchResult: payload,
+        searchResult: action.payload,
       };
-    case "fetch_contacts_falid":
+    case 'fetch_contacts_falid':
       return {
         ...state,
-        error: payload,
+        error: action.payload,
       };
     default:
       return state;
@@ -82,7 +83,7 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
     totalCount: 0,
     isLoading: true,
     selectedContact: [],
-    error: "",
+    error: '',
     searchResult: [],
   });
 
@@ -91,52 +92,42 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
 
   const { token } = useContext<{ token: string }>(AuthContext);
 
-  const fetchContacts = async (unmounted: Boolean) => {
+  const fetchContacts = async (unmounted: boolean) => {
     try {
-      const { data } = (await Axios.get(
-        `https://api-im.chatdaddy.tech/contacts`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            count: limit || 10,
-            returnTotalCount: "true",
-          },
-        }
-      )) as AxiosResponse;
+      const res = await Axios.get('https://api-im.chatdaddy.tech/contacts', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          count: limit || 10,
+          returnTotalCount: 'true',
+        },
+      });
       setLimit(limit + 10);
-      console.log({ data });
-      if (
-        state.contacts.length === state.totalCount &&
-        state.totalCount !== 0
-      ) {
-        console.log("all contacts was fetched");
-        console.log({ state });
-        console.log(hasMore);
+      if (state.contacts.length === state.totalCount && state.totalCount !== 0) {
         setHasMore(false);
       }
 
       if (unmounted) {
         dispatch({
-          type: "fetch_contacts",
-          payload: { contacts: data.contacts, totalCount: data.totalCount },
+          type: 'fetch_contacts',
+          payload: { contacts: res.data.contacts, totalCount: res.data.totalCount },
         });
         setContactsNumber(state.totalCount);
       }
     } catch (error: any) {
       console.log({ error });
       dispatch({
-        type: "fetch_contacts_falid",
-        payload: error.response.data.message || "Something went wrong!",
+        type: 'fetch_contacts_falid',
+        payload: error.response.data.message || 'Something went wrong!',
       });
     }
   };
 
   useEffect(() => {
-    let unmounted: Boolean = true;
-    !!token && fetchContacts(unmounted);
+    let unmounted = true;
+    Boolean(token) && fetchContacts(unmounted);
     return () => {
       unmounted = false;
     };
@@ -145,60 +136,55 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
   const handleSelectAllContacts = () => {
     if (state.selectedContact.length === state.contacts.length) {
       dispatch({
-        type: "unselect_all_contacts",
+        type: 'unselect_all_contacts',
         payload: [],
       });
     } else if (state.selectedContact.length < state.contacts.length) {
       dispatch({
-        type: "select_all_contacts",
+        type: 'select_all_contacts',
         payload: state.contacts,
       });
     }
   };
 
-  const handleselectedContact = (id: string, action: "select" | "unselect") => {
-    if (action === "select") {
+  const handleselectedContact = (id: string, action: 'select' | 'unselect') => {
+    if (action === 'select') {
       dispatch({
-        type: "select_contact",
-        payload: state.contacts.find(
-          (item: { [key: string]: any }) => item.id === id
-        ),
+        type: 'select_contact',
+        payload: state.contacts.find((item: Record<string, any>) => item.id === id),
       });
-    } else if (action === "unselect") {
+    } else if (action === 'unselect') {
       dispatch({
-        type: "unselect_contact",
+        type: 'unselect_contact',
         payload: [...state.selectedContact.filter((item) => item.id !== id)],
       });
     }
   };
 
   const handleSearch = async (queryValue: string) => {
-    const res: AxiosResponse = await Axios.get(
-      "https://api-im.chatdaddy.tech/contacts",
-      {
-        params: { q: queryValue, count: 20 },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res: AxiosResponse = await Axios.get('https://api-im.chatdaddy.tech/contacts', {
+      params: { q: queryValue, count: 20 },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    if (queryValue !== "") {
+    if (queryValue !== '') {
       dispatch({
-        type: "contacts_search",
+        type: 'contacts_search',
         payload: res.data.contacts,
       });
     } else {
       dispatch({
-        type: "contacts_search",
+        type: 'contacts_search',
         payload: [],
       });
     }
   };
 
   return (
-    <Col className="p-3" sm="9" md="9" lg="9">
+    <Col className='p-3' sm='9' md='9' lg='9'>
       <Header />
       <Search search={handleSearch} />
       <ActionComponent
@@ -208,18 +194,12 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
       />
 
       <InfiniteScroll
-        className="infinite-scroll"
+        className='infinite-scroll'
         dataLength={state.contacts.length}
-        next={() => fetchContacts(true)}
+        next={async () => fetchContacts(true)}
         hasMore={hasMore}
-        loader={
-          <Spinner
-            className="d-block m-auto"
-            animation="border"
-            variant="success"
-          />
-        }
-        endMessage={<Alert variant="success">"No more contacts"</Alert>}
+        loader={<Spinner className='d-block m-auto' animation='border' variant='success' />}
+        endMessage={<Alert variant='success'>"No more contacts"</Alert>}
       >
         <ContactsContainer
           contacts={state.contacts}
@@ -233,4 +213,3 @@ const Contacts: FC<ContactsType> = ({ setContactsNumber }) => {
 };
 
 export default Contacts;
-

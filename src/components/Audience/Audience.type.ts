@@ -1,5 +1,5 @@
 type AudienceType = {
-  contactsNumber: number;
+	contactsNumber: number;
 };
 
 export default AudienceType;

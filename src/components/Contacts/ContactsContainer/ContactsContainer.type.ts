@@ -1,8 +1,8 @@
 type ContactsContainerType = {
-  contacts: { [key: string]: any }[];
-  selectedContacts: { [key: string]: any }[];
-  setSelectContact: (id: string, action: "select" | "unselect") => void;
-  searchResult: { [key: string]: any }[];
+	contacts: Array<Record<string, any>>;
+	selectedContacts: Array<Record<string, any>>;
+	setSelectContact: (id: string, action: 'select' | 'unselect') => void;
+	searchResult: Array<Record<string, any>>;
 };
 
 export default ContactsContainerType;
