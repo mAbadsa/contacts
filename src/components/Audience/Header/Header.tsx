@@ -21,7 +21,7 @@ const Header: FC<HeaderType> = ({contactsNumber}) => (
 		</Col>
 		<Col className='d-flex justify-content-end' sm='6' md='6' lg='6' justify-content='flex-end'>
 			<p className='meta text-secondary'>
-				{contactsNumber} {contactsNumber !== 1 && 'Contacts'} {contactsNumber === 1 && 'Contact'}
+				{contactsNumber} {contactsNumber !== 1 && 'Contacts'}{contactsNumber === 1 && 'Contact'}
 			</p>
 		</Col>
 	</Row>
