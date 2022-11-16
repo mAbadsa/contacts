@@ -35,11 +35,7 @@
         "spaced-comment": "error",
         "quotes": ["error", "single"],
         "no-duplicate-imports": "error",
-        "@typescript-eslint/no-unsafe-call": ["off"],
-        "@typescript-eslint/no-unsafe-assignment": ["off"],
-        "@typescript-eslint/no-explicit-any": ["off"],
-        "@typescript-eslint/triple-slash-referenc": ["off"],
-        "@typescript-eslint/no-implicit-any-catch": ["off"]
+        "object-curly-spacing": ["error", "always"]
     },
     "settings": {
         "import/resolver": {

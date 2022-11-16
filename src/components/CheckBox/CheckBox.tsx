@@ -13,6 +13,7 @@ const CheckBox: FC<CheckBoxType> = ({checked, className, onChange, ...props}) =>
 	};
 
 	return (
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		<Form className={`d-flex align-items-center ${className!}`}>
 			<Form.Check
 				className='CheckBox'
