@@ -1,5 +1,11 @@
 name: Handle Issues
-on: issues
+on:
+  issues:
+    branches:
+      - "main"
+      - "test/**"
+    paths-ignore:
+        - ".github/workflows/*"
 jobs:
   output-info:
     runs-on: ubuntu-latest
