@@ -1,5 +1,11 @@
 name: contact-ci
-on: push
+on:
+  push:
+    branches:
+      - "main"
+      - "*"
+    paths-ignore:
+        - ".github/workflows/*"
 jobs:
   test:
     runs-on: ubuntu-latest

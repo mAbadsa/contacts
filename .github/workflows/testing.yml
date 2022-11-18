@@ -1,8 +1,18 @@
-name: Deployment excercise 1
+name: Run Testing
 on:
   pull_request:
     types:
       - opened
+    branches:
+      - "main"
+      - "test/**"
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+      - "test/**"
+    paths-ignore:
+        - ".github/workflows/*"
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,7 +25,3 @@ jobs:
         run: yarn run lint:fix
       - name: Test
         run: yarn test
-      - name: Build Code
-        run: yarn run build
-      - name: Deploy Code
-        run: echo "Deploying..."
