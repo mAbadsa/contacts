@@ -40,14 +40,16 @@ jobs:
         with:
           name: Build-Files
           path: build
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # - name: Get build artifacte
-  #     #   uses: actions/download-artifact@v3
-  #     #   with:
-  #     #     name: Build-Files
-  #     #     path: build
-  #     - name: Deploy Code
-  #       run: echo "Deploying..."
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build artifacte
+        uses: actions/download-artifact@v3
+        with:
+          name: Build-Files
+          path: build
+      - name: List Build Files
+        run: ls -al
+      - name: Deploy Code
+        run: echo "Deploying..."
