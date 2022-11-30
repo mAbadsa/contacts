@@ -14,7 +14,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
+          path: '**/node_modules'
           key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: yarn install
@@ -29,7 +29,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
+          path: '**/node_modules'
           key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: yarn install
@@ -46,7 +46,7 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
+          path: '**/node_modules'
           key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: yarn install
