@@ -4,8 +4,7 @@ on:
     branches:
       - "main"
       - "test/**"
-    paths-ignore:
-        - ".github/workflows/*"
+  pull_request:
 jobs:
   lint:
     runs-on: ubuntu-latest
