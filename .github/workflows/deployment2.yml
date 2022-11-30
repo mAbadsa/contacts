@@ -50,6 +50,6 @@ jobs:
           name: Build-Files
           path: build
       - name: List Build Files
-        run: ls -al
+        run: ls -Rtal build/
       - name: Deploy Code
         run: echo "Deploying..."
