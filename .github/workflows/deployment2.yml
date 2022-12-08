@@ -14,13 +14,16 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
-          key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
       - name: Lint
-        run: yarn run lint:fix
+        run: npm run lint:fix
+        id: run-lint
+
   test:
+    if: failure()
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -29,12 +32,25 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
-          key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
       - name: Test
-        run: yarn test
+        id: run-tests
+        run: npm test
+      - name: Install Playwright Browsers
+        run: npm playwright install --with-deps
+      - name: Run Playwright test
+        run: npm playwright test
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        if: failure() && steps.run-tests.outcome == 'failure'
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -46,12 +62,12 @@ jobs:
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.yarn
-          key: deps-node-modules-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
       - name: Build Code
-        run: yarn run build
+        run: npm run build
       - name: Publish JS Filename
         id: publish
         run: find build/static/js/main*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
@@ -75,3 +91,10 @@ jobs:
         run: echo ${{ needs.build.outputs.script-file }}
       - name: Deploy Code
         run: echo "Deploying..."
+  report:
+    if: failure()
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: report
+        run: echo "something went wrong"

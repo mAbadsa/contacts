@@ -1,12 +1,16 @@
 /* eslint-disable */
 
-import type { FC, ReactElement } from 'react';
+import type { FC, ReactElement } from "react";
 
-import ContactUnit from '../ContactUnit';
-import type ContactsGroupType from './ContactsGroup.type';
-import './styles.css';
+import ContactUnit from "../ContactUnit";
+import type ContactsGroupType from "./ContactsGroup.type";
+import "./styles.css";
 
-const ContactsGroup: FC<ContactsGroupType> = ({ contacts, selectedContacts, setSelectContact }) => {
+const ContactsGroup: FC<ContactsGroupType> = ({
+  contacts,
+  selectedContacts,
+  setSelectContact,
+}) => {
   const contactsUnitEl: ReactElement[] = contacts?.map((contacts) => (
     <ContactUnit
       key={contacts.id}
@@ -22,3 +26,4 @@ const ContactsGroup: FC<ContactsGroupType> = ({ contacts, selectedContacts, setS
 };
 
 export default ContactsGroup;
+

@@ -18,6 +18,6 @@ describe('Header', () => {
     const contactsNumber = 1;
     render(<Header contactsNumber={contactsNumber} />);
     const paragraphElm = screen.getByText(/1/);
-    expect(paragraphElm.textContent).toBe(`${contactsNumber} Contact`);
+    expect(paragraphElm.textContent).toBe(`${contactsNumber} Contacts`);
   });
 });
