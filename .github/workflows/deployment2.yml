@@ -23,7 +23,7 @@ jobs:
         id: run-lint
 
   test:
-    if: failure() && steps.run-lint.outcome == 'failure'
+    if: failure()
     needs: lint
     runs-on: ubuntu-latest
     steps:
